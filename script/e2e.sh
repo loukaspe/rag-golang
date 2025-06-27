@@ -94,3 +94,45 @@ response_message_4=$(curl -s --location "$BASE_URL/users/$USER_ID/chat-sessions/
 
 echo "Message 4 that's supposed to be not answered sent to chat session $CHAT_SESSION_ID:"
 echo "$response_message_4"
+
+
+echo "----------------------------------"
+
+# Step 9: call the MCP server to add number 1 and 2
+# Step 9a: Get sessionId from the SSE stream
+#echo "Fetching sessionId from /mcp/sse..."
+#
+#SSE_ENDPOINT="/mcp/sse"
+#
+#echo "Connecting to $BASE_URL$SSE_ENDPOINT to fetch sessionId..."
+#raw_output=$(curl -s --no-buffer --max-time 2 "$BASE_URL$SSE_ENDPOINT")
+#echo "Raw output from SSE stream:"
+#echo "$raw_output"
+#
+#session_id=$(echo "$raw_output" | awk -F'sessionId=' '/data:/ {print $2}' | tr -d '\r')
+#if [ -z "$session_id" ]; then
+#  echo "Error: Failed to retrieve sessionId from SSE stream."
+#  exit 1
+#fi
+#
+#echo "Session ID retrieved successfully: $session_id"
+#
+#echo "----------------------------------"
+#
+## Step 9b: Call the MCP tool 'add' with sessionId
+#echo "Calling MCP 'add' tool with sessionId: $session_id..."
+#
+#mcp_response=$(curl -s --location "$BASE_URL/mcp/message?sessionId=$session_id" \
+#  --header 'Content-Type: application/json' \
+#  --data "{
+#               \"jsonrpc\": \"2.0\",
+#               \"id\": \"1\",
+#               \"method\": \"tools/call\",
+#               \"params\": {
+#                   \"name\": \"add\",
+#                 \"arguments\": { \"a\": 1, \"b\":2}
+#               }
+#             }")
+#
+#echo "MCP response:"
+#echo "$mcp_response" | jq -r '.result.text'

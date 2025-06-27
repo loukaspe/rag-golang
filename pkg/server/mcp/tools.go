@@ -83,8 +83,8 @@ func (s *Server) InitialiseSSEServer() *server.SSEServer {
 	return server.NewSSEServer(
 		s.mcpServer,
 		server.WithStaticBasePath("/"),
-		server.WithSSEEndpoint("/sse"),
-		server.WithMessageEndpoint("/message"),
+		server.WithSSEEndpoint("/mcp/sse"),
+		server.WithMessageEndpoint("/mcp/message"),
 	)
 }
 

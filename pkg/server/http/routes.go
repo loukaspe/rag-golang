@@ -5,7 +5,6 @@ import (
 	http2 "github.com/loukaspe/rag-golang/internal/handlers/http"
 	chatSessions2 "github.com/loukaspe/rag-golang/internal/handlers/http/chatSessions"
 	"github.com/loukaspe/rag-golang/internal/repositories"
-
 	"github.com/loukaspe/rag-golang/pkg/auth"
 	"net/http"
 	"os"
@@ -35,7 +34,7 @@ func (s *Server) initializeRoutes() {
 
 	mcpSSEServer := s.mcpServer.InitialiseSSEServer()
 
-	s.router.HandleFunc("/mcp", mcpSSEServer.ServeHTTP)
+	s.router.PathPrefix("/mcp").Handler(mcpSSEServer)
 
 	// auth
 	jwtMechanism := auth.NewAuthMechanism(
